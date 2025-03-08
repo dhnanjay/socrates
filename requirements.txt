@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+requests
+discord.py
+google-cloud-secret-manager
+openai
