@@ -1,46 +1,11 @@
 import os
 import json
-import os
 from openai import OpenAI
 import logging
 from typing import Dict, Any, List
-# from google.cloud import secretmanager
 
 # Set the logging level to WARNING or ERROR to suppress debug logs
 logging.basicConfig(level=logging.WARNING)
-
-# from google.cloud import secretmanager
-#
-#
-# def access_secret_version(project_id, secret_id, version_id="latest"):
-#     """
-#     Access the payload for the given secret version. If version_id is not provided,
-#     'latest' version is accessed.
-#     """
-#
-#     # Create the Secret Manager client.
-#     client = secretmanager.SecretManagerServiceClient()
-#
-#     # Build the resource name of the secret version.
-#     name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
-#
-#     # Access the secret version.
-#     response = client.access_secret_version(name=name)
-#
-#     payload = response.payload.data.decode('UTF-8')
-#     return payload
-
-
-# # Replace with your project ID and secret ID projects/456572521140/secrets/openai_1
-# project_id = "456572521140"  # Replace with your Google Cloud Project ID
-# secret_id = "openai_1"       # Replace with the name of your secret in Secret Manager
-#
-# try:
-#     openai_api_key = access_secret_version(project_id, secret_id)
-# except Exception as e:
-#     print(f"An error occurred while retrieving openai key from gcp: {e}")
-
-
 
 # Read tokens from file
 config_path = "config.json"
@@ -51,9 +16,7 @@ if os.path.exists(config_path):
 else:
     openai_api_key = ""
 
-# Use the tokens in your code...
-# openai_api_key = os.environ.get("OPENAI_API_KEY")
-# Initialize the OpenAI client
+
 client = OpenAI(api_key=openai_api_key)
 
 
@@ -97,17 +60,7 @@ def call_llm(prompt: str, system_prompt: str, model="gpt-4o", client=client) -> 
 
         # Calculate cost using input and output tokens
         total_cost = calculate_cost(prompt_tokens, completion_tokens, model)
-        # print("---api call logs---")
-        # pretty_print_output({
-        #     "system_prompt": system_prompt,
-        #     "user": prompt,
-        #     "response_text": response_text,
-        #     "prompt_tokens": prompt_tokens,
-        #     "completion_tokens": completion_tokens,
-        #     "total_tokens": total_tokens,
-        #     "cost": total_cost
-        # })
-        # print("------")
+
         return {
             "response_text": response_text,
             "prompt_tokens": prompt_tokens,

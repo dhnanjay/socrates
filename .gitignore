@@ -1,1 +1,8 @@
 config.json
+
+# Ignore SQLite database file
+memory.db
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
